@@ -18,3 +18,11 @@ after_success:
 - curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Success" 'https://notify-api.line.me/api/notify'
 after_failure:
 - curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Failure" 'https://notify-api.line.me/api/notify'
+deploy:
+  provider: heroku
+  api_key:
+    secure: R6ggeXuc3AQLSNslOQ9WZGiVl9KpaPbXT8aZnF/jDqupZbVfS8NgG4wIsw6/Mg9I2yCyPwRHasGL5PlgtVvgd/SUuxkBCDvxj15lGCL3B87Z8unAccFkquYOrW5y0FXN+xm4bePBZYZ3G49iEfFdP6nkmNKO7jhGpjYrO6vGFIlB4TwGDo4qT4a6YmovjJpbmLXRWcBZ3sy1KW+dDBqsId8c+6zQN845a+AN7303gK2JlfyA3hbRNqC92XRwr/T4/Yj8fNUZglIYvooKwYDZI/Xxe2jWq8RC4OJ/J3CeIo6cH1YV+tFOCKCz2tUu2z0woIY46wFb+8+v1XuJvYYcfpUYHxFTBSWX17Y4QYmph2Lx6coZnOhoPNFEuzSFMKSofiKT8JWb7Ow0tqId2BJysrxBgYm1r+VjNo4H4zMqSJeAsMB1UEG5HLDmKjLCXV+vV4XXz8U/yeZ7mb8UV6DvrI66EpiHqR81Qhz1GLwHIr+voRNX9slczRfN8p9aEYAqCpUjC3eZbL0G5WvbeWHhCmSn3HrzqV3nMn2N/ipiBfC4xLFpFyY1b30gnEGc9oRYCJyGUwXLPXBsiS9hevwh6f1wmhjk/FpvsAQi9XfJJdWAuwdnN+Dwa0vpaHZDDdoRJO5i0PkvcAgogdNLIzfzw9xADtyOZuXadNwiEaBvvRE=
+  run:"rake db:migrate"
+  app: sample000001
+  on:
+    repo: ryoutsugi/sample1
