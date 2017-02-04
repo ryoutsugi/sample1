@@ -1,19 +1,21 @@
 language: ruby
-
 rvm:
- - 2.3.3
-
+- 2.3.3
 services:
-  - postgresql
-
+- postgresql
+env:
+  global:
+    secure: cxWEiCmKzYTzTFZSAIT4KTSuMqVunAcWBk1FAqvjCfmcZdQhdojQVjX8IkYA20MslnjzDO28LOjY2+zkDin3QMJPuicaZD/zmpOtkVx1aMl/AQgSwKmoTYwkKd3Wir7RXHHTmiRZhWKFBhBsdg1kM53QUIkIdHtQtl9n5JnlPvJ4fTYvBwy134q65LcY6ze4V8Y6GeTyv7xZr5f2vvP0Vt2Ew6fkTOpaZ+QWD+or8DQfD5VVj2frBWWaBfQP8hBdUGOqcnnRMbmUDEVVfucdG7u9fXfuiyoNITfvF2TYZ+Fp4K/nexiVBom/SOb9y1MDTC5VRJZudy2ZY7ORvBf8W5SKQ8pIWHOx3t/OQSHUgPmvUQZ09uPLfX8aFiOCoCg9edVWEgNZ0VYu8T1vr8Jzo9Eg0+4JfyoxiJU4qnpmlxfGu9hum2NUa5Bwf6S06r8soS/N49z0nurYxlJgx5UD/NjEXAQlRtLc6quY4S73deaMNEWuJvdH2SCcjzkYSntTwaw8EiIruDFwT9HOIH/YVNS6yk9HTyWU71E4jg3sgvGaBd1yNjHREkFjQU8CAyRmdm1WEbLK7+zzjNaQHBQaAp9vbq5mu+u7ezMdX8nx7hbGLrMHligjhCDRjesx7ix+cuqnNZu3aHdQ44EHAiGOGrtnEn3MJYp8K+Un3DuGnwM=
 bundler_args: "--without development --deployment"
-
 cache: bundler
-
 before_script:
-  - cp config/database.travis.yml config/database.yml
-  - bundle exec rake db:create
-  - bundle exec rake db:migrate
-
+- cp config/database.travis.yml config/database.yml
+- bundle exec rake db:create
+- bundle exec rake db:migrate
 script:
-  - bundle exec rake test
+- bundle exec rake test
+after_success:
+- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Success" 'https://notify-api.line.me/api/notify'
+
+after_failure:
+- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Failure" 'https://notify-api.line.me/api/notify'
