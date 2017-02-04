@@ -5,7 +5,7 @@ services:
 - postgresql
 env:
   global:
-    secure: cxWEiCmKzYTzTFZSAIT4KTSuMqVunAcWBk1FAqvjCfmcZdQhdojQVjX8IkYA20MslnjzDO28LOjY2+zkDin3QMJPuicaZD/zmpOtkVx1aMl/AQgSwKmoTYwkKd3Wir7RXHHTmiRZhWKFBhBsdg1kM53QUIkIdHtQtl9n5JnlPvJ4fTYvBwy134q65LcY6ze4V8Y6GeTyv7xZr5f2vvP0Vt2Ew6fkTOpaZ+QWD+or8DQfD5VVj2frBWWaBfQP8hBdUGOqcnnRMbmUDEVVfucdG7u9fXfuiyoNITfvF2TYZ+Fp4K/nexiVBom/SOb9y1MDTC5VRJZudy2ZY7ORvBf8W5SKQ8pIWHOx3t/OQSHUgPmvUQZ09uPLfX8aFiOCoCg9edVWEgNZ0VYu8T1vr8Jzo9Eg0+4JfyoxiJU4qnpmlxfGu9hum2NUa5Bwf6S06r8soS/N49z0nurYxlJgx5UD/NjEXAQlRtLc6quY4S73deaMNEWuJvdH2SCcjzkYSntTwaw8EiIruDFwT9HOIH/YVNS6yk9HTyWU71E4jg3sgvGaBd1yNjHREkFjQU8CAyRmdm1WEbLK7+zzjNaQHBQaAp9vbq5mu+u7ezMdX8nx7hbGLrMHligjhCDRjesx7ix+cuqnNZu3aHdQ44EHAiGOGrtnEn3MJYp8K+Un3DuGnwM=
+  - secure: nuHM+ImUpYTgppN2aIcHmx1K06vWZaEpnJesWzoS3kBBnuwm5c00VctuKhTJ/pXJns8KHMIBHm33jlye6qZbFGTlAalamKBZoDiXjPPGjKygYiPFoHrbneUpxpqmScHcxM8WW1QcQqDMruh2s/Yc+iEXh0CXQoHDVK7s+cq7sh+fS6SBOV6Ls6RAypf2XSBrUrcY1iqy+42Zyi58CymtxouZyH4awT5R2/isS10mEprVNmTJ8aVaedAFidJgdiJkn/CLezIfjzYpFSuiNepp6ceqzyo1FbSFHnHKRLkZOzk/ms6mQ1Yf9SHik+oU4MZACL+mxeG7vOAdbd2kNdK4zxe9Z8YW1kzGuBksx1xkbkjk6uxEC4TIJaaailMDHpI5nP8uxNv6kJw2sTmSbSNm8iQMq0O+VXEgM767+uKwZQo59AYq3NyL3p42hzOOaJpTj4M4CvHORHzTzEVKI1GHas53ylL3A56YA7mzRPziQ/MEA7DMV82IAFfaUnRChsekqpxw0TueEVD2IsSyv5Rx/093N+yGpiKA/v3Gi/FRTIH0LkPq7qd2NQFSbKsrFDyVDRRik3/NDGUmv3uE5JTyRV8HQ6R7gdOqSXPOpjJVAWRzPkQThTId+wlM6Nos/wbZ945c1l8bg8MQXqqauky1D+atMLYdFcd83y5WMi1nCi4=
 bundler_args: "--without development --deployment"
 cache: bundler
 before_script:
@@ -16,6 +16,5 @@ script:
 - bundle exec rake test
 after_success:
 - curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Success" 'https://notify-api.line.me/api/notify'
-
 after_failure:
 - curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Failure" 'https://notify-api.line.me/api/notify'
