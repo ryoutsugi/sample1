@@ -15,9 +15,9 @@ before_script:
 script:
 - bundle exec rake test
 after_success:
-- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Success" 'https://notify-api.line.me/api/notify'
+- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Success https://travis-ci.org/ryoutsugi/sample1/builds" 'https://notify-api.line.me/api/notify'
 after_failure:
-- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Failure" 'https://notify-api.line.me/api/notify'
+- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=Failure https://travis-ci.org/ryoutsugi/sample1/builds" 'https://notify-api.line.me/api/notify'
 deploy:
   provider: heroku
   api_key:
@@ -26,3 +26,5 @@ deploy:
   app: sample000001
   on:
     repo: ryoutsugi/sample1
+after_deploy:
+- curl -X POST -H 'Authorization:Bearer '$LINE_API_KEY -F "message=DeploySuccess https://sample000001.herokuapp.com" 'https://notify-api.line.me/api/notify'
